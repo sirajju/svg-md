@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 
-interface SVGProps {
+export interface SVGProps {
   url: string;
   selector?: string;
   style?: Record<string, Record<string, any>>;
@@ -9,14 +9,14 @@ interface SVGProps {
   loader?: ReactElement;
 }
 
-function SVG({
+const SVG: React.FC<SVGProps> = ({
   url,
   selector,
   style = {},
   svgStyle = {},
   protectedSelectors = ["defs"],
   loader,
-}: SVGProps) {
+}) => {
   const [state, setState] = useState<{
     svg: string | null;
     error: string | null;
@@ -94,7 +94,7 @@ function SVG({
     manipulateSVG();
   }, [url, selector, JSON.stringify(style), JSON.stringify(svgStyle)]);
 
-  if (state.loading) return loader || <div>Loading</div>;
+  if (state.loading) return loader || <div className="spinner"></div>;
   if (state.error) return <div className="svg-error">{state.error}</div>;
   if (!state.svg) return null;
 
@@ -104,6 +104,6 @@ function SVG({
       className="injected-svg"
     />
   );
-}
+};
 
 export default SVG;

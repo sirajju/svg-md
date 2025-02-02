@@ -1,6 +1,5 @@
 import typescript from '@rollup/plugin-typescript';
-import commonjs from '@rollup/plugin-commonjs';
-import resolve from '@rollup/plugin-node-resolve';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default {
   input: 'src/index.ts',
@@ -11,9 +10,16 @@ export default {
     },
     {
       file: 'dist/index.esm.js',
-      format: 'es',
+      format: 'esm',
     },
   ],
-  external: ['react', 'react-dom'],
-  plugins: [typescript(), commonjs(), resolve()],
+  external: ['react'],
+  plugins: [
+    nodeResolve(),
+    typescript({
+      tsconfig: './tsconfig.json',
+      declaration: true,
+      declarationDir: 'dist',
+    }),
+  ],
 };

@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-interface SVGProps {
+export interface SVGProps {
     url: string;
     selector?: string;
     style?: Record<string, Record<string, any>>;
@@ -7,5 +7,5 @@ interface SVGProps {
     protectedSelectors?: string[];
     loader?: ReactElement;
 }
-declare function SVG({ url, selector, style, svgStyle, protectedSelectors, loader, }: SVGProps): React.JSX.Element | null;
+declare const SVG: React.FC<SVGProps>;
 export default SVG;
